@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using CatalogApp.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<CatalogAppContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CATALOGAPP_CONNECTION_STRING") ?? throw new InvalidOperationException("Connection string 'CATALOGAPP_CONNECTION_STRING' not found.")));
 
 var app = builder.Build();
 
